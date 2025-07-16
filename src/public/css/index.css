@@ -1,0 +1,42 @@
+.main {
+    padding: 0 5rem 0 5rem;
+}
+
+.main__buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    height: 2rem;
+    width: 10rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.main-text {
+    color: blueviolet;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 100vh;
+    gap: 1rem;
+}
+
+.container__image {
+    width: 50%;
+    height: 100%;
+}
+
+.container__image img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.-pink {
+    background-color: pink;
+}
