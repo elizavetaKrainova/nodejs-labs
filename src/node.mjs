@@ -1,6 +1,7 @@
 import express from 'express';
 import { join } from 'node:path';
 import cookieParser from 'cookie-parser';
+import { error } from 'node:console';
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -32,6 +33,11 @@ app.post('/setLike', (request, response) => {
 
     response.cookie(id, newLike, { httpOnly: false });
     response.status(200).json({ liked: newLike });
+});
+
+app.use((error, request, response, next) => {
+    console.error(error);
+    response.status(500).send('Something went wrong!');
 });
 
 app.listen(3000)   
