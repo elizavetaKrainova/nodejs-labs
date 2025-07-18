@@ -30,12 +30,12 @@ const logAll = (request, response, next) => {
 
 app.get('/', logAll, (_, response) => {
     response.status(200)
-        .render(join(process.cwd(), 'src', 'public', 'views', 'main'));
+        .render('main');
 });
 
 app.get('/:id', (request, response) => {
     response.status(200)
-        .render(join(process.cwd(), 'src', 'public', 'views', 'personalPage'), { id: request.params.id });
+        .render('personalPage', { id: request.params.id });
 });
 
 app.post('/setLike', (request, response) => {
