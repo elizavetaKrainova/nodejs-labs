@@ -1,7 +1,7 @@
 import express from 'express';
 import { join } from 'node:path';
 import cookieParser from 'cookie-parser';
-import { error } from 'node:console';
+import { createLogger, format, transports } from 'winston';
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -11,7 +11,24 @@ app.use(express.static(join(process.cwd(), 'src', 'public')))
 app.use(cookieParser());
 app.use(express.json());
 
-app.get('/', (_, response) => {
+const logger = createLogger({
+    level: 'info',
+    format: format.combine(
+        format.timestamp(),
+        format.json()
+    ),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: 'app-node.log' }),
+    ]
+});
+
+const logAll = (request, response, next) => {
+    logger.info('URL being requested:', request.url);
+    next();
+}
+
+app.get('/', logAll, (_, response) => {
     response.status(200)
         .render(join(process.cwd(), 'src', 'public', 'views', 'main'));
 });
